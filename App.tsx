@@ -1,4 +1,5 @@
 /* eslint-disable react/style-prop-object */
+import "react-native-gesture-handler";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { Lato_400Regular, useFonts } from "@expo-google-fonts/lato";

@@ -1,8 +1,42 @@
 import React from "react";
-import { View } from "react-native";
+import { View, ScrollView } from "react-native";
+import { useRem } from "responsive-native";
+import { Container, Title, HiglightTitle, TitleBox, Wrapper } from "./styles";
+import Highlight from "../../components/Highlight";
+import { SearchBar } from 'react-native-elements';
 
-import { Container } from "./styles";
 
-const Feed: React.FC = () => <Container />;
+const Feed: React.FC = () => {
+
+  const rem = useRem();
+  return (
+    <Container>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingBottom: rem(1),
+        }}
+      >
+        <Wrapper>
+          <TitleBox>           
+            <Title>Find Movies, Tv series and more...</Title>
+          </TitleBox>
+
+          <SearchBar
+            placeholder="Dora Aventureira"
+            round
+            containerStyle={{backgroundColor: '#15141F'}}
+            
+          />         
+        </Wrapper>
+
+        
+
+        
+      </ScrollView>
+    </Container>
+  );
+  
+};
 
 export default Feed;

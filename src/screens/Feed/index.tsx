@@ -1,14 +1,22 @@
-import React from "react";
-import { View, ScrollView } from "react-native";
+import React, { useState } from "react";
+import { Alert, ScrollView } from "react-native";
 import { useRem } from "responsive-native";
-import { Container, Title, HiglightTitle, TitleBox, Wrapper } from "./styles";
-import Highlight from "../../components/Highlight";
-import { SearchBar } from 'react-native-elements';
 
+import SearchBar from "../../components/SearchBar";
+import TopBar from "../../components/TopBar";
+import Highlight from "../../components/Highlight";
+
+import { Container, Title, TitleBox, Wrapper } from "./styles";
 
 const Feed: React.FC = () => {
+  const [search, setSearch] = useState(``);
 
   const rem = useRem();
+
+  function handleCleanSearchBar() {
+    setSearch(``);
+  }
+
   return (
     <Container>
       <ScrollView
@@ -18,26 +26,28 @@ const Feed: React.FC = () => {
         }}
       >
         <Wrapper>
-          <TitleBox>           
+          <TitleBox>
             <Title>Find Movies, Tv series and more...</Title>
           </TitleBox>
 
           <SearchBar
-            placeholder="Dora Aventureira"
-            round
-            containerStyle={{backgroundColor: 'transparent', borderBottomColor: 'transparent', borderTopColor: 'transparent'}}            
-          />         
+            value={search}
+            placeHolder="Search"
+            onChangeText={setSearch}
+            onSearch={() => Alert.alert(`TODO`)}
+            onClean={handleCleanSearchBar}
+          />
+
+          <TopBar
+            titlePrimary="Movies"
+            titleSecundary="Tv Series"
+            onPrimary={() => {}}
+            onSecundary={() => {}}
+          />
         </Wrapper>
-
-        
-
-        
-
-        
       </ScrollView>
     </Container>
   );
-  
 };
 
 export default Feed;

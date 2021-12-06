@@ -10,6 +10,7 @@ export default {
     orange: `#FF8F71`,
     white: `#FFFFFF`,
     gray: `#BCBCBC`,
+    lightBlue: `#211F30`,
   },
   fonts: {
     regular: `regular`,

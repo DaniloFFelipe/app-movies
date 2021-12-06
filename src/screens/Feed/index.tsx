@@ -25,10 +25,11 @@ const Feed: React.FC = () => {
           <SearchBar
             placeholder="Dora Aventureira"
             round
-            containerStyle={{backgroundColor: '#15141F'}}
-            
+            containerStyle={{backgroundColor: 'transparent', borderBottomColor: 'transparent', borderTopColor: 'transparent'}}            
           />         
         </Wrapper>
+
+        
 
         
 

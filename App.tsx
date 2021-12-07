@@ -5,13 +5,13 @@ import React from "react";
 import { Lato_400Regular, useFonts } from "@expo-google-fonts/lato";
 import AppLoading from "expo-app-loading";
 import { ThemeProvider } from "styled-components/native";
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import Routes from "./src/routes";
 import theme from "./src/styles/theme";
 import Responsive from "./src/styles/Responsive";
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 export default function App() {
   const [fontsLoaded] = useFonts({

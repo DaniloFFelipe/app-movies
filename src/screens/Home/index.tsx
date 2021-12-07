@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { ActivityIndicator, Alert, ScrollView } from "react-native";
 import { Icon } from "react-native-elements/dist/icons/Icon";
@@ -6,34 +7,53 @@ import { useTheme } from "styled-components";
 
 import Highlight from "../../components/Highlight";
 import TrendsCard from "../../components/TrendsCard";
-import { getMovieImg, trendingServiceQuery } from "../../services/trendingService";
+import {
+  getMovieImg,
+  trendingServiceQuery,
+} from "../../services/trendingService";
 
-import { Container, Title, HiglightTitle, TitleBox, Wrapper, QueryStatusContainer, QueryStatusText } from "./styles";
+import {
+  Container,
+  Title,
+  HiglightTitle,
+  TitleBox,
+  Wrapper,
+  QueryStatusContainer,
+  QueryStatusText,
+} from "./styles";
 
 const Home: React.FC = () => {
-  const { isLoading, error, data } = trendingServiceQuery()
+  const { isLoading, error, data } = trendingServiceQuery();
   const rem = useRem();
   const theme = useTheme();
+  const navigation = useNavigation();
+
+  function handleDatails() {
+    navigation.navigate({ name: `Details` });
+  }
+
   if (isLoading) {
     return (
       <QueryStatusContainer>
         <ActivityIndicator color={theme.colors.white} size="large" />
       </QueryStatusContainer>
-    )
+    );
   }
   if (error) {
     return (
       <QueryStatusContainer>
         <Icon
-          name='times-circle'
-          type='font-awesome'
-          color='#f50'
+          name="times-circle"
+          type="font-awesome"
+          color="#f50"
           size={70}
-          onPress={() => console.log('hello')}
+          onPress={() => console.log(`hello`)}
         />
-        <QueryStatusText>Ocorreu um erro ao carregar a página inicial</QueryStatusText>
+        <QueryStatusText>
+          Ocorreu um erro ao carregar a página inicial
+        </QueryStatusText>
       </QueryStatusContainer>
-    )
+    );
   }
   return (
     <Container>
@@ -70,7 +90,7 @@ const Home: React.FC = () => {
         >
           {data.results.map((item: any, index: number) => (
             <TrendsCard
-              onPress={() => Alert.alert(item.title)}
+              onPress={handleDatails}
               key={index}
               image={getMovieImg(item.backdrop_path)}
               title={item.title}
@@ -83,7 +103,7 @@ const Home: React.FC = () => {
         </ScrollView>
       </ScrollView>
     </Container>
-  )
+  );
 };
 
 export default Home;

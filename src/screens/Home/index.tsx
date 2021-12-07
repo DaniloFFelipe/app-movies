@@ -4,12 +4,17 @@ import { Icon } from "react-native-elements/dist/icons/Icon";
 import { useRem } from "responsive-native";
 import { useTheme } from "styled-components";
 
+import Animated, {
+  useSharedValue,
+  useAnimatedScrollHandler,
+  useAnimatedStyle,
+  interpolate,
+  Extrapolate,
+} from "react-native-reanimated";
+
 import Highlight from "../../components/Highlight";
 import TrendsCard from "../../components/TrendsCard";
-import {
-  getMovieImg,
-  useTrendingServiceQuery,
-} from "../../services/useTrendingService";
+import { useTrendingServiceQuery } from "../../services/useTrendingService";
 
 import {
   Container,
@@ -21,6 +26,7 @@ import {
   QueryStatusText,
   Sparetor,
 } from "./styles";
+import MovieSlider from "../../components/MovieSlider";
 
 const Home: React.FC = () => {
   const { isLoading, error, data } = useTrendingServiceQuery();
@@ -75,16 +81,7 @@ const Home: React.FC = () => {
           </Title>
         </Wrapper>
 
-        <FlatList
-          data={data}
-          keyExtractor={(i) => String(i.id)}
-          horizontal
-          ItemSeparatorComponent={() => <Sparetor />}
-          contentContainerStyle={{
-            paddingLeft: rem(1),
-          }}
-          renderItem={({ item }) => <TrendsCard movie={item} />}
-        />
+        <MovieSlider data={data} />
       </ScrollView>
     </Container>
   );

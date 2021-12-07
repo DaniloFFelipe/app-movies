@@ -5,8 +5,8 @@ import { RectButton } from "react-native-gesture-handler";
 export const Container = styled(RectButton)``;
 
 export const Image = styled.ImageBackground`
-  height: ${({ theme }) => theme.screen.rem(18.75)}px;
-  width: ${({ theme }) => theme.screen.rem(12.5)}px;
+  height: ${({ theme }) => theme.screen.rem(18.75 * 0.8)}px;
+  width: ${({ theme }) => theme.screen.rem(12.5 * 0.8)}px;
 
   padding: ${({ theme }) => theme.screen.rem(0.8)}px;
 
@@ -18,8 +18,8 @@ export const Info = styled(BlurView).attrs({
   tint: `light`,
 })`
   /* width: ${({ theme }) => theme.screen.rem(12.5)}px; */
-  padding: ${({ theme }) => theme.screen.rem(0.8)}px;
-  border-radius: 20px;
+  padding: ${({ theme }) => theme.screen.rem(0.5)}px;
+  border-radius: 10px;
 
   justify-content: center;
   align-items: center;
@@ -27,11 +27,11 @@ export const Info = styled(BlurView).attrs({
 `;
 
 export const Title = styled.Text`
-  font-size: ${({ theme }) => theme.screen.rem(1, true)}px;
+  font-size: ${({ theme }) => theme.screen.rem(0.875, true)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.white};
 
-  margin-left: ${({ theme }) => theme.screen.rem(0.8)}px;
+  margin-left: ${({ theme }) => theme.screen.rem(0.5)}px;
 `;
 
 export const StartsConatainer = styled(BlurView).attrs({
@@ -48,14 +48,14 @@ export const StartsConatainer = styled(BlurView).attrs({
 
   flex-direction: row;
   align-items: center;
-  padding: ${({ theme }) => theme.screen.rem(0.75)}px
+  padding: ${({ theme }) => theme.screen.rem(0.5)}px
     ${({ theme }) => theme.screen.rem(0.5)}px;
 `;
 
 export const StartsValue = styled.Text`
-  font-size: ${({ theme }) => theme.screen.rem(1, true)}px;
+  font-size: ${({ theme }) => theme.screen.rem(0.875, true)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
   color: ${({ theme }) => theme.colors.white};
 
-  margin-left: ${({ theme }) => theme.screen.rem(0.8)}px;
+  margin-left: ${({ theme }) => theme.screen.rem(0.5)}px;
 `;

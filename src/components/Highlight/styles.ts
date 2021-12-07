@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 import { BlurView } from "expo-blur";
+import { RectButton } from "react-native-gesture-handler";
 
 export const Container = styled.ImageBackground`
   height: ${({ theme }) => theme.screen.rem(11.875)}px;
@@ -9,6 +10,8 @@ export const Container = styled.ImageBackground`
 
   justify-content: flex-end;
 `;
+
+export const Button = styled(RectButton)``;
 
 export const Info = styled(BlurView).attrs({
   intensity: 48,

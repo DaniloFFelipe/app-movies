@@ -34,3 +34,17 @@ export const Title = styled.Text`
 export const Wrapper = styled.View`
   padding: 0 ${({ theme }) => theme.screen.rem(1)}px;
 `;
+
+export const QueryStatusContainer = styled.View`
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  background: ${({ theme }) => theme.colors.bg};
+`;
+
+export const QueryStatusText = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.regular};
+  color: ${({ theme }) => theme.colors.white};
+  padding-top: ${({ theme }) => theme.screen.rem(1)}px;
+`;
+

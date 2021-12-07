@@ -1,6 +1,5 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { ActivityIndicator, Alert, ScrollView } from "react-native";
+import { ActivityIndicator, FlatList, ScrollView } from "react-native";
 import { Icon } from "react-native-elements/dist/icons/Icon";
 import { useRem } from "responsive-native";
 import { useTheme } from "styled-components";
@@ -9,8 +8,8 @@ import Highlight from "../../components/Highlight";
 import TrendsCard from "../../components/TrendsCard";
 import {
   getMovieImg,
-  trendingServiceQuery,
-} from "../../services/trendingService";
+  useTrendingServiceQuery,
+} from "../../services/useTrendingService";
 
 import {
   Container,
@@ -20,19 +19,15 @@ import {
   Wrapper,
   QueryStatusContainer,
   QueryStatusText,
+  Sparetor,
 } from "./styles";
 
 const Home: React.FC = () => {
-  const { isLoading, error, data } = trendingServiceQuery();
+  const { isLoading, error, data } = useTrendingServiceQuery();
   const rem = useRem();
   const theme = useTheme();
-  const navigation = useNavigation();
 
-  function handleDatails() {
-    navigation.navigate({ name: `Details` });
-  }
-
-  if (isLoading) {
+  if (isLoading || !data) {
     return (
       <QueryStatusContainer>
         <ActivityIndicator color={theme.colors.white} size="large" />
@@ -69,10 +64,7 @@ const Home: React.FC = () => {
             <Title>Everywhere</Title>
           </TitleBox>
 
-          <Highlight
-            image={getMovieImg(data.results[0].backdrop_path)}
-            title={data.results[0].title}
-          />
+          <Highlight movie={data[0]} />
 
           <Title
             style={{
@@ -82,25 +74,17 @@ const Home: React.FC = () => {
             Trending
           </Title>
         </Wrapper>
-        <ScrollView
+
+        <FlatList
+          data={data}
+          keyExtractor={(i) => String(i.id)}
           horizontal
+          ItemSeparatorComponent={() => <Sparetor />}
           contentContainerStyle={{
             paddingLeft: rem(1),
           }}
-        >
-          {data.results.map((item: any, index: number) => (
-            <TrendsCard
-              onPress={handleDatails}
-              key={index}
-              image={getMovieImg(item.backdrop_path)}
-              title={item.title}
-              stars={item.vote_average}
-              style={{
-                marginRight: rem(1),
-              }}
-            />
-          ))}
-        </ScrollView>
+          renderItem={({ item }) => <TrendsCard movie={item} />}
+        />
       </ScrollView>
     </Container>
   );

@@ -48,3 +48,6 @@ export const QueryStatusText = styled.Text`
   padding-top: ${({ theme }) => theme.screen.rem(1)}px;
 `;
 
+export const Sparetor = styled.View`
+  width: ${({ theme }) => theme.screen.rem(1)}px;
+`;

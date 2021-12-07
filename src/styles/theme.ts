@@ -11,6 +11,7 @@ export default {
     white: `#FFFFFF`,
     gray: `#BCBCBC`,
     lightBlue: `#211F30`,
+    border: `#515151`,
   },
   fonts: {
     regular: `regular`,

@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { format, parseISO } from "date-fns";
 import React, { useMemo } from "react";
 import { View } from "react-native";
@@ -11,8 +12,18 @@ interface Props {
   data: IMovie;
 }
 
-const Card: React.FC<Props> = ({ data }) => {
+const CardMovie: React.FC<Props> = ({ data }) => {
   const rem = useRem();
+  const { navigate } = useNavigation();
+
+  function handleDetails() {
+    const routeName = `Details` as never;
+    const params = {
+      movie: data,
+    } as never;
+
+    navigate(routeName, params);
+  }
 
   const year = useMemo(() => {
     const parsed = parseISO(data.release_date);
@@ -34,7 +45,7 @@ const Card: React.FC<Props> = ({ data }) => {
   }, [data.title]);
 
   return (
-    <Container>
+    <Container onPress={handleDetails}>
       <Image source={{ uri: image }} />
 
       <Label>
@@ -45,4 +56,4 @@ const Card: React.FC<Props> = ({ data }) => {
   );
 };
 
-export default Card;
+export default CardMovie;

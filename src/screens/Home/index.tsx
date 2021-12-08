@@ -1,20 +1,11 @@
 import React from "react";
-import { ActivityIndicator, FlatList, ScrollView } from "react-native";
+import { ActivityIndicator, ScrollView } from "react-native";
 import { Icon } from "react-native-elements/dist/icons/Icon";
 import { useRem } from "responsive-native";
 import { useTheme } from "styled-components";
 
-import Animated, {
-  useSharedValue,
-  useAnimatedScrollHandler,
-  useAnimatedStyle,
-  interpolate,
-  Extrapolate,
-} from "react-native-reanimated";
-
 import Highlight from "../../components/Highlight";
-import TrendsCard from "../../components/TrendsCard";
-import { useTrendingServiceQuery } from "../../services/useTrendingService";
+import { useTrendingServiceQuery } from "../../services/hooks/useTrendingService";
 
 import {
   Container,
@@ -24,7 +15,6 @@ import {
   Wrapper,
   QueryStatusContainer,
   QueryStatusText,
-  Sparetor,
 } from "./styles";
 import MovieSlider from "../../components/MovieSlider";
 
@@ -70,7 +60,7 @@ const Home: React.FC = () => {
             <Title>Everywhere</Title>
           </TitleBox>
 
-          <Highlight movie={data[0]} />
+          <Highlight movie={data.results[0]} />
 
           <Title
             style={{
@@ -81,7 +71,7 @@ const Home: React.FC = () => {
           </Title>
         </Wrapper>
 
-        <MovieSlider data={data} />
+        <MovieSlider data={data.results} />
       </ScrollView>
     </Container>
   );

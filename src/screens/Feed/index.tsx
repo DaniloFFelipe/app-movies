@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert, FlatList } from "react-native";
+import { ActivityIndicator, FlatList } from "react-native";
 import { useRem } from "responsive-native";
 import Animated, {
   useSharedValue,
@@ -9,25 +9,43 @@ import Animated, {
   Extrapolate,
 } from "react-native-reanimated";
 
-import Card from "../../components/Card";
+import { useTheme } from "styled-components";
+
+import CardMovie from "../../components/CardMovie";
 import SearchBar from "../../components/SearchBar";
 import TopBar from "../../components/TopBar";
-import { useTrendingServiceQuery } from "../../services/useTrendingService";
+import { IMovie, ITv } from "../../services/types";
+import {
+  useTrendingMovieQuery,
+  useTrendingTVQuery,
+} from "../../services/hooks/useTrendingServicePage";
 
-import { Container, Title, TitleBox, Wrapper } from "./styles";
-import { IMovie } from "../../services/types";
+import { Container, Title, TitleBox, Wrapper, LoadingContent } from "./styles";
+import CardTv from "../../components/CardTv";
 
 const { createAnimatedComponent } = Animated;
 
-const AnimatedFlatList = createAnimatedComponent(
+const AnimatedFlatListMovie = createAnimatedComponent(
   FlatList as new () => FlatList<IMovie>,
+);
+const AnimatedFlatListTV = createAnimatedComponent(
+  FlatList as new () => FlatList<ITv>,
 );
 
 const Feed: React.FC = () => {
-  const { data: movieData, isLoading } = useTrendingServiceQuery();
-  const rem = useRem();
-
+  const [pageMovie, setPageMovie] = useState(1);
   const [type, setType] = useState<"movie" | "tv">(`movie`);
+  const rem = useRem();
+  const { colors } = useTheme();
+
+  const { data: movieData } = useTrendingMovieQuery({
+    page: pageMovie,
+  });
+
+  const { data: tvData } = useTrendingTVQuery({
+    page: pageMovie,
+  });
+
   const [search, setSearch] = useState(``);
 
   const scrollY = useSharedValue(0);
@@ -62,7 +80,7 @@ const Feed: React.FC = () => {
           value={search}
           placeHolder="Search"
           onChangeText={setSearch}
-          onSearch={() => Alert.alert(`TODO`)}
+          onSearch={() => {}}
           onClean={handleCleanSearchBar}
         />
         <TopBar
@@ -72,14 +90,47 @@ const Feed: React.FC = () => {
           onSecundary={() => handleSwitch(`tv`)}
         />
 
-        <AnimatedFlatList
-          data={movieData}
-          onScroll={scrollHanlder}
-          showsVerticalScrollIndicator={false}
-          numColumns={2}
-          keyExtractor={(i) => String(i.id)}
-          renderItem={({ item }) => <Card data={item} />}
-        />
+        {type === `movie` ? (
+          <AnimatedFlatListMovie
+            data={movieData}
+            onScroll={scrollHanlder}
+            showsVerticalScrollIndicator={false}
+            scrollEventThrottle={32}
+            ListFooterComponent={() => (
+              <LoadingContent>
+                <ActivityIndicator color={colors.white} />
+              </LoadingContent>
+            )}
+            contentContainerStyle={{
+              paddingBottom: rem(10),
+            }}
+            numColumns={2}
+            onEndReached={() => setPageMovie((old) => old + 1)}
+            onEndReachedThreshold={1}
+            keyExtractor={(i) => String(i.id)}
+            renderItem={({ item }) => <CardMovie data={item} />}
+          />
+        ) : (
+          <AnimatedFlatListTV
+            data={tvData}
+            onScroll={scrollHanlder}
+            showsVerticalScrollIndicator={false}
+            scrollEventThrottle={32}
+            ListFooterComponent={() => (
+              <LoadingContent>
+                <ActivityIndicator color={colors.white} />
+              </LoadingContent>
+            )}
+            contentContainerStyle={{
+              paddingBottom: rem(10),
+            }}
+            numColumns={2}
+            onEndReached={() => setPageMovie((old) => old + 1)}
+            onEndReachedThreshold={1}
+            keyExtractor={(i) => String(i.id)}
+            renderItem={({ item }) => <CardTv data={item} />}
+          />
+        )}
       </Wrapper>
     </Container>
   );

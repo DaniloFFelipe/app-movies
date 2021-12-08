@@ -1,17 +1,14 @@
 import { useQuery } from "react-query";
-import { API_KEY, BASE_URL } from "./api";
-import { IMovie } from "./types";
+import api from "./api";
+import { IMovie, ITrends } from "./types";
 
 const imgMoviePath = `https://www.themoviedb.org/t/p/w220_and_h330_face`;
 
 export const useTrendingServiceQuery = () =>
   useQuery(`repoData`, async () => {
-    const resp = await fetch(
-      `${BASE_URL}3/trending/movie/day?api_key=${API_KEY}`,
-    );
-    const data = await resp.json();
+    const resp = await api.get<ITrends<IMovie>>(`3/trending/movie/day`);
 
-    return data.results as IMovie[];
+    return resp.data as ITrends<IMovie>;
   });
 
 export function getMovieImg(file: string) {

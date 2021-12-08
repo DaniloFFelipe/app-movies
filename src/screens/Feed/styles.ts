@@ -34,3 +34,9 @@ export const Title = styled.Text`
 export const Wrapper = styled.View`
   padding: 0 ${({ theme }) => theme.screen.rem(1)}px;
 `;
+
+export const LoadingContent = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;

@@ -6,7 +6,7 @@ import { AntDesign, Entypo } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 import { format, parseISO } from "date-fns";
-import { IMovie } from "../../services/types";
+import { IMovie, ITv } from "../../services/types";
 
 import {
   Container,
@@ -24,37 +24,37 @@ import {
 } from "./styles";
 import { getMovieImg } from "../../services/hooks/useTrendingService";
 import GenreItem from "../../components/GenreItem";
-import { useMovieDetail } from "../../services/hooks/useMovieDetail";
+import { useTvDetail } from "../../services/hooks/useTvDetail";
 
 type Params = {
-  movie: IMovie;
+  tv: ITv;
 };
 
-const Details: React.FC = () => {
+const DetailsTv: React.FC = () => {
   const route = useRoute();
   const { goBack } = useNavigation();
-  const { movie } = route.params as Params;
+  const { tv } = route.params as Params;
 
-  const { data } = useMovieDetail({
-    movieId: movie.id,
+  const { data } = useTvDetail({
+    tvId: tv.id,
   });
 
   const { screen, colors } = useTheme();
   const rem = useRem();
 
   const image = useMemo(
-    () => getMovieImg(movie.backdrop_path),
-    [movie.backdrop_path],
+    () => getMovieImg(tv.backdrop_path),
+    [tv.backdrop_path],
   );
 
   const releaseDate = useMemo(() => {
     if (data) {
-      const dateParsed = parseISO(data?.release_date);
+      const dateParsed = parseISO(tv?.first_air_date);
 
       return format(dateParsed, `MMMM d',' yyyy`);
     }
     return ``;
-  }, [data?.release_date]);
+  }, [data?.first_air_date]);
 
   return (
     <Container>
@@ -80,7 +80,7 @@ const Details: React.FC = () => {
 
       <Content>
         <Section>
-          <Header>{data?.title}</Header>
+          <Header>{data?.name}</Header>
 
           <Wrapper>
             <MovieStatus>
@@ -93,7 +93,7 @@ const Details: React.FC = () => {
                 }}
               />
 
-              <Text>{data?.runtime} minutes</Text>
+              <Text>{data?.number_of_seasons} seasons</Text>
             </MovieStatus>
 
             <AntDesign
@@ -135,4 +135,4 @@ const Details: React.FC = () => {
   );
 };
 
-export default Details;
+export default DetailsTv;

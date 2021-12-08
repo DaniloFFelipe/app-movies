@@ -38,9 +38,12 @@ const TrendsCard: React.FC<Props> = ({ movie }) => {
   const { navigate } = useNavigation();
 
   function handleDetails() {
-    navigate(`Details`, {
+    const routeName = `Details` as never;
+    const params = {
       movie,
-    });
+    } as never;
+
+    navigate(routeName, params);
   }
 
   const image = useMemo(

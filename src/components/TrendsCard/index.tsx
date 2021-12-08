@@ -30,10 +30,9 @@ import { getMovieImg } from "../../services/useTrendingService";
 
 interface Props {
   movie: IMovie;
-  visible?: boolean;
 }
 
-const TrendsCard: React.FC<Props> = ({ movie, visible = true }) => {
+const TrendsCard: React.FC<Props> = ({ movie }) => {
   const rem = useRem();
 
   const { navigate } = useNavigation();
@@ -52,7 +51,6 @@ const TrendsCard: React.FC<Props> = ({ movie, visible = true }) => {
   return (
     <Container onPress={handleDetails}>
       <Image
-        isShowing={visible}
         resizeMode="cover"
         borderRadius={rem(1.875)}
         source={{

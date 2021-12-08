@@ -4,17 +4,9 @@ import { RectButton } from "react-native-gesture-handler";
 
 export const Container = styled(RectButton)``;
 
-type ImageProps = {
-  isShowing?: boolean;
-};
-
-export const Image = styled.ImageBackground<ImageProps>`
-  height: ${({ theme, isShowing }) =>
-    isShowing
-      ? theme.screen.rem(18.75 * 0.8)
-      : theme.screen.rem(18.75 * 0.7)}px;
-  width: ${({ theme, isShowing }) =>
-    isShowing ? theme.screen.rem(12.5 * 0.8) : theme.screen.rem(12.5 * 0.7)}px;
+export const Image = styled.ImageBackground`
+  height: ${({ theme }) => theme.screen.rem(18.75 * 0.8)}px;
+  width: ${({ theme }) => theme.screen.rem(12.5 * 0.8)}px;
 
   padding: ${({ theme }) => theme.screen.rem(0.8)}px;
 

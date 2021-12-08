@@ -20,14 +20,6 @@ interface ChangeImageProps {
 const MovieSlider: React.FC<Props> = ({ data }) => {
   const rem = useRem();
 
-  const [movieIndex, setMovieIndex] = useState(0);
-
-  const indexChanged = useRef((info: ChangeImageProps) => {
-    console.log(info);
-
-    setMovieIndex(info.viewableItems[0].index!);
-  });
-
   return (
     <FlatList
       data={data}
@@ -36,14 +28,11 @@ const MovieSlider: React.FC<Props> = ({ data }) => {
       ItemSeparatorComponent={() => <Sparetor />}
       scrollEventThrottle={32}
       showsHorizontalScrollIndicator={false}
-      onViewableItemsChanged={indexChanged.current}
       contentContainerStyle={{
         paddingLeft: rem(2),
         alignItems: `center`,
       }}
-      renderItem={({ item, index }) => (
-        <TrendsCard visible={movieIndex + 1 === index} movie={item} />
-      )}
+      renderItem={({ item }) => <TrendsCard movie={item} />}
     />
   );
 };

@@ -26,7 +26,7 @@ import {
 } from "./styles";
 
 import { IMovie } from "../../services/types";
-import { getMovieImg } from "../../services/useTrendingService";
+import { getMovieImg } from "../../services/hooks/useTrendingService";
 
 interface Props {
   movie: IMovie;

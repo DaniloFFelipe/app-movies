@@ -4,7 +4,7 @@ import React, { useMemo } from "react";
 import { View } from "react-native";
 import { useRem } from "responsive-native";
 import { IMovie } from "../../services/types";
-import { getMovieImg } from "../../services/useTrendingService";
+import { getMovieImg } from "../../services/hooks/useTrendingService";
 
 import { Container, Image, Label, Title, Year } from "./styles";
 

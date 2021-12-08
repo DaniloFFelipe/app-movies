@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import api from "./api";
-import { IMovie, ITrends, ITv } from "./types";
+import api from "../api";
+import { IMovie, ITrends, ITv } from "../types";
 
 type FetchFromApiProps = {
   page?: number;

@@ -1,4 +1,4 @@
-import { BorderlessButton } from "react-native-gesture-handler";
+import { RectButton } from "react-native-gesture-handler";
 import styled from "styled-components/native";
 
 export const Container = styled.View`
@@ -6,8 +6,16 @@ export const Container = styled.View`
   background: ${({ theme }) => theme.colors.bg};
 `;
 
-export const BackButton = styled(BorderlessButton)`
+export const BackButton = styled(RectButton)`
   position: absolute;
+
+  height: ${({ theme }) => theme.screen.rem(2.5)}px;
+  width: ${({ theme }) => theme.screen.rem(2.5)}px;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 9999px;
+  background: ${({ theme }) => theme.colors.bg};
 
   margin-top: ${({ theme }) =>
     theme.screen.statusBarHeight + theme.screen.rem(1)}px;

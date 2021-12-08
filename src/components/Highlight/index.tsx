@@ -4,7 +4,7 @@ import { useRem } from "responsive-native";
 
 import Play from "../../assets/play-active.svg";
 import { IMovie } from "../../services/types";
-import { getMovieImg } from "../../services/useTrendingService";
+import { getMovieImg } from "../../services/hooks/useTrendingService";
 
 import { Container, Info, Title, Button } from "./styles";
 

@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
-import api from "./api";
-import { IMovie, ITrends } from "./types";
+import api from "../api";
+import { IMovie, ITrends } from "../types";
 
 const imgMoviePath = `https://www.themoviedb.org/t/p/w220_and_h330_face`;
 

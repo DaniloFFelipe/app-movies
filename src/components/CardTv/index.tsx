@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { format, parseISO } from "date-fns";
 import React, { useMemo } from "react";
 import { ITv } from "../../services/types";
-import { getMovieImg } from "../../services/useTrendingService";
+import { getMovieImg } from "../../services/hooks/useTrendingService";
 
 import { Container, Image, Label, Title, Year } from "./styles";
 

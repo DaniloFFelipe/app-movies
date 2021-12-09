@@ -13,7 +13,6 @@ interface Props {
 }
 
 const CardMovie: React.FC<Props> = ({ data }) => {
-  const rem = useRem();
   const { navigate } = useNavigation();
 
   function handleDetails() {
@@ -26,8 +25,11 @@ const CardMovie: React.FC<Props> = ({ data }) => {
   }
 
   const year = useMemo(() => {
-    const parsed = parseISO(data.release_date);
+    if (!data.release_date) {
+      return ``;
+    }
 
+    const parsed = parseISO(data.release_date);
     return format(parsed, `yyyy`);
   }, [data.release_date]);
 

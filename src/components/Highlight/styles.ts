@@ -18,6 +18,7 @@ export const Info = styled(BlurView).attrs({
   tint: `light`,
 })`
   /* width: ${({ theme }) => theme.screen.rem(12.5)}px; */
+  width: 100%;
   padding: ${({ theme }) => theme.screen.rem(0.8)}px;
   margin-right: auto;
   border-radius: 20px;

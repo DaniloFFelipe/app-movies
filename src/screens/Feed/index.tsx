@@ -68,7 +68,7 @@ const Feed: React.FC = () => {
     scrollY.value = event.contentOffset.y;
   });
 
-  const h = rem(5);
+  const h = rem(5.25);
 
   const headerStyleAnimation = useAnimatedStyle(() => ({
     height: interpolate(scrollY.value, [0, h], [h, 0], Extrapolate.CLAMP),
@@ -86,9 +86,9 @@ const Feed: React.FC = () => {
 
   function updatePage() {
     if (movieSearchData?.length > 0 || tvSearchData?.length > 0) {
-      setSearchPageMovie((old) => old + 1)
+      setSearchPageMovie((old) => old + 1);
     } else {
-      setPageMovie((old) => old + 1)
+      setPageMovie((old) => old + 1);
     }
   }
 
@@ -99,13 +99,12 @@ const Feed: React.FC = () => {
   const tvData =
     type === `tv` && tvSearchData?.length > 0 ? tvSearchData : tvTrendingData;
 
-
   return (
     <Container>
       <Wrapper>
         <Animated.View style={headerStyleAnimation}>
           <TitleBox>
-            <Title>Find Movies, TV Series and More...</Title>
+            <Title>Find Movies, TV Series{`\n`}and More...</Title>
           </TitleBox>
         </Animated.View>
         <SearchBar
@@ -128,11 +127,6 @@ const Feed: React.FC = () => {
             onScroll={scrollHanlder}
             showsVerticalScrollIndicator={false}
             scrollEventThrottle={32}
-            ListFooterComponent={() => (
-              <LoadingContent>
-                <ActivityIndicator color={colors.white} />
-              </LoadingContent>
-            )}
             contentContainerStyle={{
               paddingBottom: rem(10),
             }}
@@ -148,11 +142,6 @@ const Feed: React.FC = () => {
             onScroll={scrollHanlder}
             showsVerticalScrollIndicator={false}
             scrollEventThrottle={32}
-            ListFooterComponent={() => (
-              <LoadingContent>
-                <ActivityIndicator color={colors.white} />
-              </LoadingContent>
-            )}
             contentContainerStyle={{
               paddingBottom: rem(10),
             }}

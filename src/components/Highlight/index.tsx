@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useMemo } from "react";
 import { useRem } from "responsive-native";
 
+import { View } from "react-native";
 import Play from "../../assets/play-active.svg";
 import { IMovie } from "../../services/types";
 import { getMovieImg } from "../../services/hooks/useTrendingService";
@@ -40,11 +41,18 @@ const Highlight: React.FC<Props> = ({ movie }) => {
       }}
     >
       <Button onPress={handleDetails}>
-        <Info>
-          <Play />
+        <View
+          style={{
+            borderRadius: 10,
+            overflow: `hidden`,
+          }}
+        >
+          <Info>
+            <Play />
 
-          <Title>{movie.title}</Title>
-        </Info>
+            <Title>{movie.title}</Title>
+          </Info>
+        </View>
       </Button>
     </Container>
   );

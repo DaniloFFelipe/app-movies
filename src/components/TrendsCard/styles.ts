@@ -13,13 +13,17 @@ export const Image = styled.ImageBackground`
   justify-content: flex-end;
 `;
 
+export const InfoBox = styled.View`
+  overflow: hidden;
+  border-radius: 10px;
+`;
+
 export const Info = styled(BlurView).attrs({
   intensity: 48,
   tint: `light`,
 })`
   /* width: ${({ theme }) => theme.screen.rem(12.5)}px; */
   padding: ${({ theme }) => theme.screen.rem(0.5)}px;
-  border-radius: 10px;
 
   justify-content: center;
   align-items: center;
@@ -34,10 +38,7 @@ export const Title = styled.Text`
   margin-left: ${({ theme }) => theme.screen.rem(0.5)}px;
 `;
 
-export const StartsConatainer = styled(BlurView).attrs({
-  intensity: 55,
-  tint: `light`,
-})`
+export const StartsConatainer = styled.View`
   position: absolute;
   top: 0;
   right: 0;
@@ -46,6 +47,15 @@ export const StartsConatainer = styled(BlurView).attrs({
   margin-right: ${({ theme }) => theme.screen.rem(1)}px;
   border-radius: ${({ theme }) => theme.screen.rem(0.5)}px;
 
+  overflow: hidden;
+`;
+
+export const BlurBox = styled(BlurView).attrs({
+  intensity: 55,
+  tint: `light`,
+})`
+  width: 100%;
+  height: 100%;
   flex-direction: row;
   align-items: center;
   padding: ${({ theme }) => theme.screen.rem(0.5)}px

@@ -1,17 +1,6 @@
-import React, { useEffect, useMemo } from "react";
-import { RectButtonProps } from "react-native-gesture-handler";
+import React, { useMemo } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useRem } from "responsive-native";
-
-import Animated, {
-  useSharedValue,
-  useAnimatedScrollHandler,
-  useAnimatedStyle,
-  interpolate,
-  Extrapolate,
-  useDerivedValue,
-  runOnJS,
-} from "react-native-reanimated";
 
 import { View } from "react-native";
 import Stars from "../../assets/star.svg";
@@ -23,6 +12,8 @@ import {
   Title,
   StartsConatainer,
   StartsValue,
+  BlurBox,
+  InfoBox,
 } from "./styles";
 
 import { IMovie } from "../../services/types";
@@ -61,13 +52,17 @@ const TrendsCard: React.FC<Props> = ({ movie }) => {
         }}
       >
         <StartsConatainer>
-          <Stars />
-          <StartsValue>{movie.vote_average}</StartsValue>
+          <BlurBox>
+            <Stars />
+            <StartsValue>{movie.vote_average}</StartsValue>
+          </BlurBox>
         </StartsConatainer>
 
-        <Info>
-          <Title>{movie.title}</Title>
-        </Info>
+        <InfoBox>
+          <Info>
+            <Title>{movie.title}</Title>
+          </Info>
+        </InfoBox>
       </Image>
     </Container>
   );

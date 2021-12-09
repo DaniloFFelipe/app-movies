@@ -23,8 +23,11 @@ const CardTv: React.FC<Props> = ({ data }) => {
   }
 
   const year = useMemo(() => {
-    const parsed = parseISO(data.first_air_date);
+    if (!data.first_air_date) {
+      return ``;
+    }
 
+    const parsed = parseISO(data.first_air_date);
     return format(parsed, `yyyy`);
   }, [data.first_air_date]);
 

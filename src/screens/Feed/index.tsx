@@ -21,7 +21,11 @@ import {
 } from "../../services/hooks/useTrendingServicePage";
 
 import { Container, Title, TitleBox, Wrapper, LoadingContent } from "./styles";
-import CardTv from "../../components/CardTv";
+import CardTV from "../../components/CardTv";
+import {
+  useSearchMovieQuery,
+  useSearchTVQuery,
+} from "../../services/hooks/useSearchService";
 
 const { createAnimatedComponent } = Animated;
 
@@ -34,19 +38,30 @@ const AnimatedFlatListTV = createAnimatedComponent(
 
 const Feed: React.FC = () => {
   const [pageMovie, setPageMovie] = useState(1);
+  const [searchPageMovie, setSearchPageMovie] = useState(1);
   const [type, setType] = useState<"movie" | "tv">(`movie`);
   const rem = useRem();
   const { colors } = useTheme();
 
-  const { data: movieData } = useTrendingMovieQuery({
+  const { data: movieTrendingData } = useTrendingMovieQuery({
     page: pageMovie,
   });
 
-  const { data: tvData } = useTrendingTVQuery({
+  const { data: tvTrendingData } = useTrendingTVQuery({
     page: pageMovie,
   });
 
   const [search, setSearch] = useState(``);
+
+  const { data: movieSearchData } = useSearchMovieQuery({
+    search,
+    page: searchPageMovie,
+  });
+
+  const { data: tvSearchData } = useSearchTVQuery({
+    search,
+    page: searchPageMovie,
+  });
 
   const scrollY = useSharedValue(0);
   const scrollHanlder = useAnimatedScrollHandler((event) => {
@@ -62,30 +77,47 @@ const Feed: React.FC = () => {
 
   function handleCleanSearchBar() {
     setSearch(``);
+    setSearchPageMovie(1);
   }
 
   function handleSwitch(switchType: "movie" | "tv") {
     setType(switchType);
   }
 
+  function updatePage() {
+    if (movieSearchData?.length > 0 || tvSearchData?.length > 0) {
+      setSearchPageMovie((old) => old + 1)
+    } else {
+      setPageMovie((old) => old + 1)
+    }
+  }
+
+  const movieData =
+    type === `movie` && movieSearchData?.length > 0
+      ? movieSearchData
+      : movieTrendingData;
+  const tvData =
+    type === `tv` && tvSearchData?.length > 0 ? tvSearchData : tvTrendingData;
+
+
   return (
     <Container>
       <Wrapper>
         <Animated.View style={headerStyleAnimation}>
           <TitleBox>
-            <Title>Find Movies, Tv series and more...</Title>
+            <Title>Find Movies, TV Series and More...</Title>
           </TitleBox>
         </Animated.View>
         <SearchBar
           value={search}
           placeHolder="Search"
           onChangeText={setSearch}
-          onSearch={() => {}}
+          onSearch={() => setSearch((prev) => `${prev} `)}
           onClean={handleCleanSearchBar}
         />
         <TopBar
           titlePrimary="Movies"
-          titleSecundary="Tv Series"
+          titleSecundary="TV Series"
           onPrimary={() => handleSwitch(`movie`)}
           onSecundary={() => handleSwitch(`tv`)}
         />
@@ -105,7 +137,7 @@ const Feed: React.FC = () => {
               paddingBottom: rem(10),
             }}
             numColumns={2}
-            onEndReached={() => setPageMovie((old) => old + 1)}
+            onEndReached={updatePage}
             onEndReachedThreshold={1}
             keyExtractor={(i) => String(i.id)}
             renderItem={({ item }) => <CardMovie data={item} />}
@@ -125,10 +157,10 @@ const Feed: React.FC = () => {
               paddingBottom: rem(10),
             }}
             numColumns={2}
-            onEndReached={() => setPageMovie((old) => old + 1)}
+            onEndReached={updatePage}
             onEndReachedThreshold={1}
             keyExtractor={(i) => String(i.id)}
-            renderItem={({ item }) => <CardTv data={item} />}
+            renderItem={({ item }) => <CardTV data={item} />}
           />
         )}
       </Wrapper>
